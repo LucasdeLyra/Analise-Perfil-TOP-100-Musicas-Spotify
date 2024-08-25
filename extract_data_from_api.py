@@ -5,8 +5,8 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from time import sleep
 
 # Define credenciais do spotify, obtidas em "https://developer.spotify.com/dashboard" > clica num app > settings
-client_id = ''
-client_secret = ''
+client_id = 'c98054586345489da75e24f997a56b76'
+client_secret = '2bdf92b795a141d2b1093536b707e5a6'
 
 # Se autentica na API do Spotify
 client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
@@ -109,14 +109,11 @@ def get_music_table(country_code: str, continent_code: str, first_run: bool = Fa
         
     # Apaga duplicatas da tabela de artistas
     artist_data = artist_data.drop_duplicates(subset=['id'], keep='first')
-    
-    # Define se salvará o nome das colunas
-    if first_run:
-        header = True
+    music_data = music_data.drop_duplicates(subset=['id'], keep='first')
     
     # Salva tabelas    
-    artist_data.to_csv('./tabelas/artistas.csv', index=False, header=header)
-    music_data.to_csv('./tabelas/musicas.csv', index=False, header=header)
+    artist_data.to_csv('./tabelas/artistas.csv', index=False, header=True)
+    music_data.to_csv('./tabelas/musicas.csv', index=False, header=True)
 
 # Comandos utilizados para criar tabelas de musicas e artistas 
 #get_music_table('BR', 'SA', True)
@@ -133,12 +130,15 @@ def get_music_table(country_code: str, continent_code: str, first_run: bool = Fa
 #get_music_table('IT', 'EU')
 #get_music_table('LU', 'EU')
 #get_music_table('MX', 'NA')
+#get_music_table('NG', 'AF')
 #get_music_table('NL', 'EU')
+#get_music_table('NZ', 'OC')
 #get_music_table('NO', 'EU')
 #get_music_table('PL', 'EU')
 #get_music_table('SE', 'EU')
 #get_music_table('SG', 'AS')
 #get_music_table('US', 'NA')
+#get_music_table('ZA', 'AF')
 
 
 def get_artists_and_genre_data(first: bool = False):
@@ -182,5 +182,4 @@ def get_artists_and_genre_data(first: bool = False):
     artist_data.to_csv('./tabelas/artistas.csv', index=False, header=True)
     
     
-
-get_artists_and_genre_data()
+get_artists_and_genre_data(True)

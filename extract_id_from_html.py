@@ -34,7 +34,7 @@ def get_id(country_code:str):
     with open(output_file_path, 'w', encoding='utf-8') as output_file:
         output_file.write(json_data)
         
-countries = ['AT', 'AU', 'CA', 'CH', 'DE', 'ES', 'GB', 'IE', 'IN', 'IS', 'IT', 'LU', 'MX', 'NL', 'NO', 'PL', 'SE', 'SG', 'US',]
+countries = ['NZ', 'ZA']
 
 for country_code in countries:
     get_id(country_code)
