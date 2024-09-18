@@ -5,8 +5,8 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from time import sleep
 
 # Define credenciais do spotify, obtidas em "https://developer.spotify.com/dashboard" > clica num app > settings
-client_id = 'c98054586345489da75e24f997a56b76'
-client_secret = '2bdf92b795a141d2b1093536b707e5a6'
+client_id = ''
+client_secret = ''
 
 # Se autentica na API do Spotify
 client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
@@ -182,4 +182,34 @@ def get_artists_and_genre_data(first: bool = False):
     artist_data.to_csv('./tabelas/artistas.csv', index=False, header=True)
     
     
-get_artists_and_genre_data(True)
+#get_artists_and_genre_data(True)
+
+
+def get_muisc_data(first: bool = False):
+    music_data = pd.read_csv('./tabelas/musicas.csv')
+
+    album_names = []
+    release_dates = []
+    
+    # Iterando por cada artista
+    for i in range(len(music_data)):
+        music_id = music_data.loc[i]['id'][3:]
+        # Faz chamada à API no endpoint "Get Artist"
+        track = sp.track(music_id)
+        
+        album_name = track['album']['name']
+        release_date = track['album']['release_date']
+        
+        album_names.append(album_name)
+        release_dates.append(release_date)
+        
+    
+    # Cria coluna de popularidade na tabela de musicas
+    music_data = music_data.assign(album_name=album_names)
+    music_data = music_data.assign(release_date=release_dates)
+    
+    music_data.to_csv('./tabelas/musicas.csv', index=False, header=True)
+    
+    
+get_muisc_data()
+    
