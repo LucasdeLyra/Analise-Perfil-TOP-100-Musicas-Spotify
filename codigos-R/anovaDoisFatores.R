@@ -3,6 +3,19 @@ library(readr)
 musicas <- read_csv("Documents/faculdade/Spotify_MQAM/tabelas/musicas_normalizadas.csv")
 View(musicas)
 
+# AGRUPAR OS VALORES PARA TEMPO
+musicas$tempo[musicas$tempo<0.1] <- 0
+musicas$tempo[musicas$tempo>=0.1 & musicas$tempo<0.2] <- 0.1
+musicas$tempo[musicas$tempo>=0.2 & musicas$tempo<0.3] <- 0.2
+musicas$tempo[musicas$tempo>=0.3 & musicas$tempo<0.4] <- 0.3
+musicas$tempo[musicas$tempo>=0.4 & musicas$tempo<0.5] <- 0.4
+musicas$tempo[musicas$tempo>=0.5 & musicas$tempo<0.6] <- 0.5
+musicas$tempo[musicas$tempo>=0.6 & musicas$tempo<0.7] <- 0.6
+musicas$tempo[musicas$tempo>=0.7 & musicas$tempo<0.8] <- 0.7
+musicas$tempo[musicas$tempo>=0.8 & musicas$tempo<0.9] <- 0.8
+musicas$tempo[musicas$tempo>=0.9 & musicas$tempo<1] <- 0.9
+# musicas$tempo[musicas$tempo==1] <- 1 já está feito
+
 # DIVIDIR DATABASE EM DUAS (TESTE CRUZADO SUGERIDO PELO PROFESSOR)
 n <- 1200 # number of original database
 select <- sample(c(TRUE, FALSE), n, replace=TRUE, prob=c(0.5, 0.5))
