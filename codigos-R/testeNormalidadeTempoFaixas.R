@@ -9,8 +9,8 @@ musicasFiltrado <- musicas[musicas$country!="NG",]
 View(musicasFiltrado)
 
 musicasFiltrado$tempo[musicasFiltrado$tempo<=0.33] <- 0.33
-musicasFiltrado$tempo[musicasFiltrado$tempo>0.33 & musicasFiltrado$tempo<=0.67] <- 0.67
-musicasFiltrado$tempo[musicasFiltrado$tempo>0.67 & musicasFiltrado$tempo<=1] <- 1
+musicasFiltrado$tempo[musicasFiltrado$tempo>0.33 & musicasFiltrado$tempo<=0.85] <- 0.67
+musicasFiltrado$tempo[musicasFiltrado$tempo>0.85 & musicasFiltrado$tempo<=1] <- 1
 
 tempo1 <- subset(musicasFiltrado, tempo==0.33)
 tempo2 <- subset(musicasFiltrado, tempo==0.67)
@@ -24,20 +24,34 @@ skewness(tempo1$danceability)
 skewness(tempo2$danceability)
 skewness(tempo3$danceability)
 
+par(mfcol=c(1,3))
 normalized <- bestNormalize(tempo1$danceability)
-predicted <- predict(normalized)
-hist(predicted)
-skewness(predicted)
-shapiro.test(predicted)
+tempo1 <- predict(normalized)
+hist(tempo1, probability=TRUE)
+lines(density(tempo1), 
+      col = "red",              # Cor da curva de densidade
+      lwd = 2)                  # Espessura da linha da curva
+shapiro.test(tempo1)
+
 
 normalized <- bestNormalize(tempo2$danceability)
-predicted <- predict(normalized)
-hist(predicted)
-skewness(predicted)
-shapiro.test(predicted)
+tempo2 <- predict(normalized)
+hist(tempo2, probability=TRUE)
+lines(density(tempo2), 
+      col = "red",              # Cor da curva de densidade
+      lwd = 2)                  # Espessura da linha da curva
+shapiro.test(tempo2)
+
 
 normalized <- bestNormalize(tempo3$danceability)
-predicted <- predict(normalized)
-hist(predicted)
-skewness(predicted)
-shapiro.test(predicted)
+tempo3 <- predict(normalized)
+hist(tempo3, probability=TRUE)
+lines(density(tempo2), 
+      col = "red",              # Cor da curva de densidade
+      lwd = 2)                  # Espessura da linha da curva
+shapiro.test(tempo3)
+
+
+
+
+
