@@ -5,8 +5,6 @@ library(bestNormalize)
 musicas <- read_csv("Documents/faculdade/Spotify_MQAM/tabelas/musicas_normalizadas.csv")
 View(musicas)
 
-musicas = subset(musicas, select=-c(id, name, continent, rank, loudness, acousticness, energy, instrumentalness, key, liveness, mode, speechiness, tempo, time_signature, valence, explicit, artist_id, album_name, release_date))
-
 musicasFiltrado <- musicas[musicas$country!="NG",]
 View(musicasFiltrado)
 
