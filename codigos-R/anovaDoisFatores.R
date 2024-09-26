@@ -33,16 +33,18 @@ musicas2 <- musicasFiltrado[!select, ]
 # independendetes ficam depois, separadas por '+'
 anovaMusicasFull <- aov(danceability ~ tempo + country + valence, data = musicasFiltrado)
 summary(anovaMusicasFull)
-anovaMusicasFull$coefficients
+# anovaMusicasFull$coefficients
 
 # ANOVA PARA MUSICAS1 (SAMPLE 1)
 anovaMusicas1 <- aov(danceability ~ tempo + country + valence, data = musicas1)
 summary(anovaMusicas1)
-anovaMusicas1$coefficients
+# anovaMusicas1$coefficients
 
 # ANOVA PARA MUSICAS2 (SAMPLE 2)
 anovaMusicas2 <- aov(danceability ~ tempo + country + valence, data = musicas2)
 summary(anovaMusicas2)
-anovaMusicas2$coefficients
+# anovaMusicas2$coefficients
 
+par(mfcol=c(2,2))
+plot(residuals(anovaMusicasFull))
 
