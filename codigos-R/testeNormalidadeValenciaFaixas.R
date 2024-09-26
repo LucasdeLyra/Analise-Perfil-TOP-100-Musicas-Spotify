@@ -9,11 +9,11 @@ musicasFiltrado <- musicas[musicas$country!="NG" & musicas$country!="IN" & music
 View(musicasFiltrado)
 
 musicasFiltrado$valence[musicasFiltrado$valence<=0.33] <- 0.33
-musicasFiltrado$valence[musicasFiltrado$valence>0.33 & musicasFiltrado$valence<=0.66] <- 0.66
-musicasFiltrado$valence[musicasFiltrado$valence>0.66 & musicasFiltrado$valence<=1] <- 1
+musicasFiltrado$valence[musicasFiltrado$valence>0.33 & musicasFiltrado$valence<=0.85] <- 0.85
+musicasFiltrado$valence[musicasFiltrado$valence>0.85 & musicasFiltrado$valence<=1] <- 1
 
 valence1 <- subset(musicasFiltrado, valence==0.33)
-valence2 <- subset(musicasFiltrado, valence==0.66)
+valence2 <- subset(musicasFiltrado, valence==0.85)
 valence3 <- subset(musicasFiltrado, valence==1)
 
 shapiro.test(valence1$danceability)
@@ -46,27 +46,8 @@ shapiro.test(valence2)
 normalized <- bestNormalize(valence3$danceability)
 valence3 <- predict(normalized)
 hist(valence3, probability=TRUE)
-lines(density(valence2), 
+lines(density(valence3), 
       col = "red",              # Cor da curva de densidade
       lwd = 2)                  # Espessura da linha da curva
 shapiro.test(valence3)
-
-normalized <- bestNormalize(valence4$danceability)
-valence4 <- predict(normalized)
-hist(valence3, probability=TRUE)
-lines(density(valence4), 
-      col = "red",              # Cor da curva de densidade
-      lwd = 2)                  # Espessura da linha da curva
-shapiro.test(valence4)
-
-normalized <- bestNormalize(valence5$danceability)
-valence5 <- predict(normalized)
-hist(valence5, probability=TRUE)
-lines(density(valence5), 
-      col = "red",              # Cor da curva de densidade
-      lwd = 2)                  # Espessura da linha da curva
-shapiro.test(valence5)
-
-
-
 

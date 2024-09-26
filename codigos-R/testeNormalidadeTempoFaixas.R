@@ -5,7 +5,7 @@ library(bestNormalize)
 musicas <- read_csv("Documents/faculdade/Spotify_MQAM/tabelas/musicas_normalizadas.csv")
 View(musicas)
 
-musicasFiltrado <- musicas[musicas$country!="NG",]
+musicasFiltrado <- musicas[musicas$country!="NG" & musicas$country!="IN" & musicas$country!="US" & musicas$country!="MX" & musicas$country!="NZ" & musicas$country!="DE",]
 View(musicasFiltrado)
 
 musicasFiltrado$tempo[musicasFiltrado$tempo<=0.33] <- 0.33
@@ -46,7 +46,7 @@ shapiro.test(tempo2)
 normalized <- bestNormalize(tempo3$danceability)
 tempo3 <- predict(normalized)
 hist(tempo3, probability=TRUE)
-lines(density(tempo2), 
+lines(density(tempo3), 
       col = "red",              # Cor da curva de densidade
       lwd = 2)                  # Espessura da linha da curva
 shapiro.test(tempo3)
