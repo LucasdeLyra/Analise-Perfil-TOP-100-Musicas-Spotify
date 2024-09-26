@@ -23,28 +23,6 @@ musicas1 <- musicasFiltrado[select, ]
 musicas2 <- musicasFiltrado[!select, ]
 
 # ANOVA PARA MUSICAS (FULL SAMPLE)
-# utilizamos ANOVA de dois fatores, pois temos duas variaveis independentes
-# e uma variavel dependende
-# independentes: tempo, pais
-# dependente: dancabilidade
-
-# para modificar variaveis:
-# dependente fica antes do '~'
-# independendetes ficam depois, separadas por '+'
-anovaMusicasFull <- aov(danceability ~ tempo + country + valence, data = musicasFiltrado)
+anovaWelchMusicasFull <- oneway.test(danceability ~ tempo + country, data = musicasFiltrado)
 summary(anovaMusicasFull)
-# anovaMusicasFull$coefficients
-
-# ANOVA PARA MUSICAS1 (SAMPLE 1)
-anovaMusicas1 <- aov(danceability ~ tempo + country + valence, data = musicas1)
-summary(anovaMusicas1)
-# anovaMusicas1$coefficients
-
-# ANOVA PARA MUSICAS2 (SAMPLE 2)
-anovaMusicas2 <- aov(danceability ~ tempo + country + valence, data = musicas2)
-summary(anovaMusicas2)
-# anovaMusicas2$coefficients
-
-par(mfcol=c(2,2))
-plot(residuals(anovaMusicasFull))
 
