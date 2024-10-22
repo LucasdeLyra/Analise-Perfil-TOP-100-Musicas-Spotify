@@ -35,19 +35,18 @@ numericos <- c("loudness", "acousticness", "danceability", "energy", "liveness",
 
 #----------------
 musicas <- read_csv("./My Games/Spotify_MQAM/tabelas/musicas.csv")
-colunas_selecionadas <- musicas[colunas]
 
-plot(colunas_selecionadas)
+plot(musicas[colunas])
 #aplica função
-for (i in colnames(colunas_selecionadas)){
+for (i in colnames(musicas[colunas])){
   if (i != "continent"){
-    colunas_selecionadas[i] <- remove_outliers(colunas_selecionadas[[i]])
+    musicas[colunas][i] <- remove_outliers(musicas[colunas][[i]])
   }
   
 }
-colunas_selecionadas
+musicas[colunas]
 #remove todas as linhas com valors NA
-musicas_sem_outliers <- colunas_selecionadas[complete.cases(colunas_selecionadas), ]
+musicas_sem_outliers <- musicas[colunas][complete.cases(musicas[colunas]), ]
 plot(musicas_sem_outliers)
 
 for (i in colnames(musicas_sem_outliers)){
