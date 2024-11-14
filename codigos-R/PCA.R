@@ -1,71 +1,57 @@
 library(readr)
 library(stats)
+library(RColorBrewer)
 
 # Carregando dados
-musicas <- read_csv("./Spotify_MQAM-main/tabelas/musicas.csv")
+musicas <- read_csv("C:\\Users\\dubis\\Desktop\\BSCode\\Github\\Spotify_MQAM\\tabelas\\musicas.csv")
 numericos <- c("loudness", "acousticness", "danceability", "energy", "liveness", "speechiness", "tempo", "valence")
 matriz_dados_numericos = musicas[numericos]
 
-
 # Rodando o PCA
 y <- prcomp(matriz_dados_numericos, scale=TRUE)
-y$rotation <- -1*y$rotation
-y$x <- -1*y$x
-round(t(t(y$rotation)%*%t(matriz_dados_numericos)), digits = 3)
+y$rotation <- -1 * y$rotation
+y$x <- -1 * y$x
 
+# Unique countries for color assignment
+continentes <- musicas$continent
+unique_countries <- unique(continentes)
 
-#Visulizando o mesmo que o professor fez
-sum(diag(cov(matriz_dados_numericos)))
-sum(eigen(cov(matriz_dados_numericos))$values)
+# Assign light colors to points and dark colors to labels
+light_colors <- brewer.pal(min(length(unique_countries), 8), "Set3")
+if (length(unique_countries) > 8) {
+  light_colors <- colorRampPalette(light_colors)(length(unique_countries))
+}
+dark_colors <- brewer.pal(min(length(unique_countries), 8), "Dark2")
+if (length(unique_countries) > 8) {
+  dark_colors <- colorRampPalette(dark_colors)(length(unique_countries))
+}
 
-eigen(cov(matriz_dados_numericos))$values/sum(diag(cov(matriz_dados_numericos)))
-mean(eigen(cov(matriz_dados_numericos))$values)
-cor(y$x,matriz_dados_numericos)
+# Mapping colors to countries
+point_colors <- setNames(light_colors, unique_countries)
+label_colors <- setNames(dark_colors, unique_countries)
 
+# Function to plot PCA components with light points and dark labels
+plot_pca <- function(pc_x, pc_y, title) {
+  plot(pc_data[[pc_x]], pc_data[[pc_y]], 
+       xlab = pc_x, ylab = pc_y, 
+       main = title,
+       pch = 16, col = point_colors[continentes])
+  
+  # Add labels with dark colors
+  text(pc_data[[pc_x]], pc_data[[pc_y]], labels = continentes, pos = 3, 
+       cex = 0.8, col = label_colors[continentes])
+}
 
-# Método 2 (variância explicadas)
-eigen(cov(y$x))$values/sum(diag(cov(y$x)))
-eigen(cov(y$x))$values
-mean(eigen(cov(y$x))$values)
+# Plotting PC1 vs PC2
+plot_pca("PC1", "PC2", "PCA1 X PCA2 agrupado por continente")
 
+# Plotting PC1 vs PC3
+plot_pca("PC1", "PC3", "PCA1 X PCA3 agrupado por continente")
 
-#Plotando
-continentes <- musicas$country
+# Plotting PC2 vs PC3
+plot_pca("PC2", "PC3", "PCA2 X PCA3 agrupado por continente")
 
-pc_data <- data.frame(continentes, y$x[, c("PC1", "PC2")])
-colnames(pc_data) = c("continentes", "PC1", "PC2")
-# Plot PC1 vs. PC2
-plot(pc_data$PC1, pc_data$PC2, 
-     xlab = "PC1", ylab = "PC2", 
-     main = "PCA1 X PCA2 agrupado por país",
-     pch = 16, col = "#5caa77")
+# Save PCA loadings to CSV
+write.csv(round(y$rotation, 8), "pca_loadings.csv", row.names = TRUE)
 
-# Add labels to each point using the continent names
-text(pc_data$PC1, pc_data$PC2, labels = pc_data$continentes, pos = 3, cex = 0.8, col = "#1c1934")
-
-
-
-pc_data <- data.frame(continentes, y$x[, c("PC1", "PC3")])
-colnames(pc_data) = c("continentes", "PC1", "PC3")
-# Plot PC1 vs. PC3
-plot(pc_data$PC1, pc_data$PC3, 
-     xlab = "PC1", ylab = "PC3", 
-     main = "PCA1 X PCA3 agrupado por país",
-     pch = 16, col = "#5caa77")
-
-# Add labels to each point using the continent names
-text(pc_data$PC1, pc_data$PC3, labels = pc_data$continentes, pos = 3, cex = 0.8, col = "#1c1934")
-
-
-
-pc_data <- data.frame(continentes, y$x[, c("PC2", "PC3")])
-colnames(pc_data) = c("continentes", "PC2", "PC3")
-# Plot PC2 vs. PC3
-plot(pc_data$PC2, pc_data$PC3, 
-     xlab = "PC2", ylab = "PC3", 
-     main = "PCA2 X PCA3 agrupado por país",
-     pch = 16, col = "#5caa77")
-
-# Add labels to each point using the continent names
-text(pc_data$PC2, pc_data$PC3, labels = pc_data$continentes, pos = 3, cex = 0.8, col = "#1c1934")
 
