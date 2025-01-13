@@ -22,9 +22,9 @@ Todas as técnicas foram aplicadas em R. Os programas de suporte como o acesso a
 
 ## Integrantes do Grupo:
 
-- Aline Crispim de Moraes 
-- Ana Clara Segal Vidal Pessanha 
-- Giovanna Almeida Albuquerque 
-- Júlia Du Bois Araújo Silva 
-- Lucas de Lyra Monteiro 
+- [Aline Crispim de Moraes](https://github.com/Nubily44)
+- [Ana Clara Segal Vidal Pessanha](https://github.com/segalv)
+- [Giovanna Almeida Albuquerque](https://github.com/giabq)
+- [Júlia Du Bois Araújo Silva](https://github.com/juliaduboisas) 
+- [Lucas de Lyra Monteiro](https://github.com/LucasdeLyra)
 
