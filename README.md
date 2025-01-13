@@ -18,7 +18,7 @@ Todas as técnicas foram aplicadas em R. Os programas de suporte como o acesso a
 - CA: Cluster Analysis / Análise de Clusters*
 - MDS: Multidimensional Scaling / Escalonamento Multidimensional
 
-* Análises na branch de análise descritiva
+\* Análises na branch de análise descritiva
 
 ## Integrantes do Grupo:
 
