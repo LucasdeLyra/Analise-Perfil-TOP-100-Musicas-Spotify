@@ -6,7 +6,7 @@ Escolhemos os 2 países mais populosos de cada continente, de forma a ter uma am
 Além disso, também aplicamos diversos métodos estatísticos, afim de comparar seu desempenho em classificar as músicas quanto ao país da qual ela seria mais ouvida, e estudar a separação de cada país no dataset.
 Todas as técnicas foram aplicadas em R. Os programas de suporte como o acesso a API e a análise descritiva inicial foram feitos em python.
 
-## Tecnicas aplicadas: 
+## Tecnicas aplicadas:
 
 - Análise descritiva
 - MLR: Multiple Linear Regression / Regressão Linear Múltipla*
